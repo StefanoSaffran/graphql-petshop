@@ -16,13 +16,15 @@ conexao.connect(erro => {
 const Clients = new operations('cliente');
 const resolvers = {
   Query: {
-    status: () =>
-      "Server started",
+    status: () =>"Server started",
     clientes: () => Clients.lista(),
+    cliente: (root, { id }) => Clients.buscaPorId(id)
   },
   Mutation: {
     addClient: (root, params) =>
-      Clients.adiciona(params)
+      Clients.adiciona(params),
+    updateClient: (root, params) =>
+      Clients.atualiza(params)
   }
 
 }
