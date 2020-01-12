@@ -6,9 +6,11 @@ type Cliente {
 
 type Mutation {
   addClient(nome: String!, cpf: String!): Cliente!
+  updateClient(id: ID!, nome: String!, cpf: String!): Cliente!
 }
 
 type Query {
   status: String!
   clientes: [Cliente!]!
+  cliente(id: ID!): Cliente
 }
