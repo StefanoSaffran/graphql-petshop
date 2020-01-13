@@ -1,7 +1,7 @@
 const executaQuery = require('../database/queries')
 
 class Cliente {
-  lista() {
+  getAll() {
     const sql = 'SELECT * FROM Clientes'
 
     return executaQuery(sql)
@@ -14,7 +14,7 @@ class Cliente {
       .then(clientes => clientes[0])
   }
 
-  adiciona(item) {
+  add(item) {
     const { nome, cpf } = item
     const sql = `INSERT INTO Clientes(nome, CPF) VALUES('${nome}', '${cpf}')`
 
@@ -28,24 +28,20 @@ class Cliente {
       ))
   }
 
-  atualiza(novoItem) {
+  update(novoItem) {
     const { id, nome, cpf } = novoItem
     const sql = `UPDATE Clientes SET nome='${nome}', CPF='${cpf}' WHERE id=${id}`
 
     return executaQuery(sql)
-      .then(res => (
-        {
-          id: res.insertId,
-          nome,
-          cpf
-        }
-      ))
+      .then(() => novoItem)
   }
 
-  deleta(res, id) {
+  delete(id) {
     const sql = `DELETE FROM Clientes WHERE id=${id}`
 
-    executaQuery(res, sql)
+    return executaQuery(sql)
+      .then(() => id)
+      .catch(err => err.message)
   }
 }
 
