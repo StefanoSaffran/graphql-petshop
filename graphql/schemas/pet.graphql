@@ -3,12 +3,12 @@ type Pet {
   nome: String!
   tipo: String
   observacoes: String
-  dono: Cliente!
+  dono: Client!
 }
 
 type Mutation {
   addPet(nome: String!, donoId: Int!, tipo: String, observacoes: String): Pet!
-  updatePet(id: ID!, nome: String!, donoId: Int!, tipo: String, observacoes: String): Pet!,
+  updatePet(id: ID!, nome: String!, donoId: Int!, tipo: String, observacoes: String): Pet!
   deletePet(id: ID!): ID!
 }
 

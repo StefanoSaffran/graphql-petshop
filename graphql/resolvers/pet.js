@@ -1,6 +1,6 @@
-const operations = require('../../infraestrutura/operations')
+const Operations = require('../../infraestrutura/operations')
 
-const Pets = new operations('pet');
+const Pets = new Operations('pet');
 
 const resolvers = {
   Query: {
