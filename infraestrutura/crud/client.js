@@ -1,6 +1,6 @@
 const executaQuery = require('../database/queries')
 
-class Cliente {
+class Client {
   getAll() {
     const sql = 'SELECT * FROM Clientes; SELECT * FROM Pets'
 
@@ -66,4 +66,4 @@ class Cliente {
   }
 }
 
-module.exports = new Cliente
+module.exports = new Client

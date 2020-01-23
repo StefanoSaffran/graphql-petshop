@@ -1,11 +1,11 @@
-const atendimento = require('./atendimento')
-const cliente = require('./cliente')
+const customerService = require('./customer-service')
+const client = require('./client')
 const pet = require('./pet')
-const servico = require('./servico')
+const service = require('./service')
 
 module.exports = {
-  atendimento,
-  cliente,
+  customerService,
+  client,
   pet,
-  servico
+  service
 }
