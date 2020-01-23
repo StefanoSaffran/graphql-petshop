@@ -1,0 +1,21 @@
+type CustomerService {
+  id: ID!
+  cliente: Client!
+  pet: Pet!
+  servico: Service!
+  data: String!
+  status: String
+  observacoes: String
+}
+
+type Mutation {
+  addCustomerService(clienteId: Int!, petId: Int!, servicoId: Int!, status: String, 
+    observacoes: String): CustomerService!
+  updateCustomerService(id: ID!, nome: String!, cpf: String!): CustomerService!
+  deleteCustomerService(id: ID!): ID!
+}
+
+type Query {
+  customerServices: [CustomerService!]!
+  customerService(id: ID!): CustomerService
+}
