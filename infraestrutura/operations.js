@@ -9,8 +9,8 @@ class Operations {
     return cruds[this._entidade].getAll()
   }
 
-  buscaPorId(id) {
-    return cruds[this._entidade].buscaPorId(id)
+  findById(id) {
+    return cruds[this._entidade].findById(id)
   }
 
   add(item) {

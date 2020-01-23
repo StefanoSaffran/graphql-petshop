@@ -2,16 +2,37 @@ const executaQuery = require('../database/queries')
 
 class Cliente {
   getAll() {
-    const sql = 'SELECT * FROM Clientes'
+    const sql = 'SELECT * FROM Clientes; SELECT * FROM Pets'
 
     return executaQuery(sql)
+      .then(data => {
+        const clients = data[0]
+        const pets = data[1]
+
+        return clients.map(client => {
+          const petsClient = pets.filter(pet => pet.donoId === client.id)
+
+          return ({
+            ...client,
+            pets: petsClient
+          })
+        })
+      })
   }
 
-  buscaPorId(id) {
-    const sql = `SELECT * FROM Clientes WHERE id=${id}`
+  findById(id) {
+    const sql = `SELECT * FROM Clientes WHERE id=${id}; SELECT * FROM Pets WHERE donoId = ${id}`
 
     return executaQuery(sql)
-      .then(clientes => clientes[0])
+      .then(data => {
+        const client = data[0][0]
+        const pets = data[1]
+
+        return ({
+          ...client,
+          pets
+        })
+      })
   }
 
   add(item) {
