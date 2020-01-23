@@ -1,0 +1,17 @@
+type Service {
+  id: ID!
+  nome: String!
+  preco: Float!
+  descricao: String
+}
+
+type Mutation {
+  addService(nome: String!, preco: Float!, descricao: String): Service!
+  updateService(id: ID!, nome: String!, preco: Float!, descricao: String): Service!
+  deleteService(id: ID!): ID!
+}
+
+type Query {
+  services: [Service!]!
+  service(id: ID): Service!
+}
