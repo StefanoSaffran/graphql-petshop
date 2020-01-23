@@ -1,6 +1,6 @@
 const operations = require('../../infraestrutura/operations')
 
-const Clients = new operations('cliente');
+const Clients = new operations('client');
 
 const resolvers = {
   Query: {
