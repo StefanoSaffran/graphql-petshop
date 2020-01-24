@@ -37,10 +37,38 @@ class CustomerService {
     })
   }
 
-  findById(res, id) {
-    const sql = `SELECT * FROM Atendimentos WHERE id=${parseInt(id)}`
+  findById(id) {
+    const sql = `SELECT Atendimentos.id, Atendimentos.data, Atendimentos.status, Atendimentos.observacoes, 
+    Pets.id as petId, Pets.nome as petNome, Pets.tipo as petTipo, Pets.observacoes as petObservacoes, 
+    Clientes.id as clienteId, Clientes.nome as clienteNome, Clientes.cpf as clienteCpf, Servicos.id as servicoId, 
+    Servicos.nome as servicoNome, Servicos.preco as servicoPreco, Servicos.descricao as servicoDescricao FROM Atendimentos 
+    INNER JOIN Clientes INNER JOIN Pets INNER JOIN Servicos WHERE Atendimentos.clienteId = Clientes.id 
+    AND Atendimentos.petId = Pets.id AND Atendimentos.servicoId = Servicos.id AND Atendimentos.id = ${id}`
 
-    executaQuery(res, sql)
+    return executaQuery(sql)
+      .then(response => ({
+        id: response[0].id,
+        data: response[0].data,
+        status: response[0].status,
+        observacoes: response[0].observacoes,
+        cliente: {
+          id: response[0].clienteId,
+          nome: response[0].clienteId,
+          cpf: response[0].clienteNome
+        },
+        pet: {
+          id: response[0].petId,
+          nome: response[0].petNome,
+          tipo: response[0].petTipo,
+          observacoes: response[0].petObservacoes
+        },
+        servico: {
+          id: response[0].servicoId,
+          nome: response[0].servicoNome,
+          preco: response[0].servicoPreco,
+          descricao: response[0].servicoDescricao
+        }
+      }))
   }
 
   add(item) {
@@ -77,19 +105,44 @@ class CustomerService {
       )
     }
 
-  update(res, novoItem, id) {
-    const { cliente, pet, servico, status, observacoes } = item
-    const data = new Date.toLocaleDateString()
+  update(novoItem) {
+    const { id, clienteId, petId, servicoId, status, observacoes } = novoItem
+    const data = new Date();
+    const dia  = data.getDate().toString().padStart(2, '0');
+    const mes  = (data.getMonth()+1).toString().padStart(2, '0'); //+1 pois no getMonth Janeiro começa com zero.
+    const ano  = data.getFullYear();
+    const formatedDate = ano+"-"+mes+"-"+dia;
   
-    const sql = `UPDATE Atendimentos SET clienteId=${cliente}, petId=${pet}, servicoId=${servico}, data='${data}', status='${status}' observacoes='${observacoes}' WHERE id=${id}`
+    const sql = `UPDATE Atendimentos SET clienteId=${clienteId}, petId=${petId}, 
+    servicoId=${servicoId}, status='${status}', data='${formatedDate}', observacoes='${observacoes}' 
+    WHERE id=${id}; SELECT * FROM Clientes WHERE Clientes.id = ${clienteId}; 
+    SELECT * FROM Pets WHERE Pets.id = ${petId}; SELECT * FROM Servicos WHERE Servicos.id = ${servicoId}`
 
-    executaQuery(res, sql)
+    return executaQuery(sql)
+      .then(response => 
+        {
+        const cliente = response[1][0];
+        const pet = response[2][0];
+        const servico = response[3][0];
+        
+        return ({
+          id,
+          data,
+          status,
+          observacoes,
+          cliente,
+          pet,
+          servico
+        })
+        }
+      )
   }
 
-  delete(res, id) {
+  delete(id) {
     const sql = `DELETE FROM Atendimentos WHERE id=${id}`
 
-    executaQuery(res, sql)
+    return executaQuery(sql)
+      .then(() => id)
   }
 }
 
