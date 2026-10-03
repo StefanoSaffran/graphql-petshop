@@ -583,10 +583,10 @@ configstore@^3.0.0:
     write-file-atomic "^2.0.0"
     xdg-basedir "^3.0.0"
 
-consign@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/consign/-/consign-0.1.6.tgz#5a9b3a60ba5d362a514841b0c633e584486a72d7"
-  integrity sha512-Idlqa7N46rD6Odarx9qArbMpPrljc8DjV2DYH6uAFoOLITtuanhi2S/Z4LX4Jvg6+ef16Mjwwp5k5c5fMoOzIA==
+consign@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/consign/-/consign-0.2.0.tgz#cfc7738f52aa3aa02bdf398bb644cb7c0b22761d"
+  integrity sha512-ZB7vFCgDn5NyUaqEewgbUJPNvqXyQYbTgDockStUJUhJASbSEsoxTvgIz6MfuHytiJq60lA7q0F9ChaxhGgDqA==
 
 content-disposition@0.5.3:
   version "0.5.3"
